@@ -1,0 +1,7 @@
+# Загруженные файлы не должны исполняться как скрипты — только отдаваться как есть.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<FilesMatch "\.(php|phtml|php\d)$">
+    Require all denied
+</FilesMatch>

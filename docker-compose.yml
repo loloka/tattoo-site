@@ -1,0 +1,89 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public_html:/var/www/html
+      - ./app:/var/www/app
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASSWORD}
+      SITE_OWNER_FIRST: ${SITE_OWNER_FIRST}
+      SITE_OWNER_LAST: ${SITE_OWNER_LAST}
+      SITE_SUBTITLE: ${SITE_SUBTITLE}
+      SITE_SUBTITLE_EYEBROW: ${SITE_SUBTITLE_EYEBROW}
+      SITE_TELEGRAM: ${SITE_TELEGRAM}
+      SITE_TELEGRAM_URL: ${SITE_TELEGRAM_URL}
+      SITE_NAV_HOME: ${SITE_NAV_HOME}
+      SITE_NAV_GALLERY: ${SITE_NAV_GALLERY}
+      SITE_NAV_CONTACT: ${SITE_NAV_CONTACT}
+      SITE_BIO_LABEL: ${SITE_BIO_LABEL}
+      SITE_BIO_LABEL_DE: ${SITE_BIO_LABEL_DE}
+      SITE_BIO: ${SITE_BIO}
+      SITE_BIO_DE: ${SITE_BIO_DE}
+      SITE_CONTACT_LABEL: ${SITE_CONTACT_LABEL}
+      SITE_CONTACT_LABEL_DE: ${SITE_CONTACT_LABEL_DE}
+      GALLERY_EYEBROW: ${GALLERY_EYEBROW}
+      GALLERY_EYEBROW_DE: ${GALLERY_EYEBROW_DE}
+      GALLERY_TITLE: ${GALLERY_TITLE}
+      GALLERY_TITLE_DE: ${GALLERY_TITLE_DE}
+      GALLERY_EMPTY: ${GALLERY_EMPTY}
+      GALLERY_EMPTY_DE: ${GALLERY_EMPTY_DE}
+      CONTACT_FORM_TITLE: ${CONTACT_FORM_TITLE}
+      CONTACT_FORM_TITLE_DE: ${CONTACT_FORM_TITLE_DE}
+      CONTACT_FORM_INTRO: ${CONTACT_FORM_INTRO}
+      CONTACT_FORM_INTRO_DE: ${CONTACT_FORM_INTRO_DE}
+      SITE_TG_CHANNEL_NOTE: ${SITE_TG_CHANNEL_NOTE}
+      SITE_TG_CHANNEL_NOTE_DE: ${SITE_TG_CHANNEL_NOTE_DE}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+
+  # Удобно, чтобы глазами посмотреть на базу — необязательный сервис.
+  # Не запускается по умолчанию (нужен профиль "tools"), поэтому обычный
+  # `docker compose up -d --build` его даже не трогает.
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    profiles: ["tools"]
+    ports:
+      - "8081:8080"
+
+  # Более привычный многим phpMyAdmin — тоже опционален (профиль "tools"),
+  # если Adminer непривычен и хочется именно его.
+  phpmyadmin:
+    image: phpmyadmin
+    restart: unless-stopped
+    profiles: ["tools"]
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "8082:80"
+
+volumes:
+  db_data:

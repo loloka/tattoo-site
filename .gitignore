@@ -1,0 +1,20 @@
+# --- Секреты: НЕ коммитить ---
+.env
+app/config.php
+
+# --- Загруженный контент (генерируется/загружается на месте) ---
+public_html/uploads/works/*
+public_html/uploads/thumbs/*
+!public_html/uploads/works/.gitkeep
+!public_html/uploads/thumbs/.gitkeep
+public_html/assets/img/*
+!public_html/assets/img/.gitkeep
+
+# --- Мусор ОС/редакторов ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/
+node_modules/
