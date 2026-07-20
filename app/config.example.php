@@ -63,5 +63,23 @@ define('CONTACT_FORM_INTRO_DE', 'Das Formular unten ausfüllen — die Nachricht
 define('SITE_TG_CHANNEL_NOTE', 'Telegram channel where I share my everyday sketches');
 define('SITE_TG_CHANNEL_NOTE_DE', 'Telegram-Kanal, bei dem ich meine alltäglichen Skizzen teile');
 
+// Тексты формы "связаться" (двуязычные, формат "Русский / Deutsch")
+define('FORM_LABEL_NAME', 'Имя / Name *');
+define('FORM_LABEL_TOPIC', 'Тема обращения / Betreff *');
+define('FORM_TOPIC_PLACEHOLDER', 'Выбрать тему / Betreff auswählen');
+define('FORM_TOPIC_1', 'Хочу предложить работу / Ich möchte eine Arbeit anbieten');
+define('FORM_TOPIC_2', 'Вопрос по работе / покупке / Frage zur Arbeit / zum Kauf');
+define('FORM_TOPIC_3', 'Сотрудничество / Zusammenarbeit');
+define('FORM_TOPIC_4', 'Другое / Sonstiges');
+define('FORM_LABEL_COMMENT', 'Комментарий (не обязательно) / Kommentar (optional)');
+define('FORM_LABEL_CONTACT', 'Телеграм или телефон / Telegram oder Telefonnummer *');
+define('FORM_CONSENT', 'Нажимая на кнопку, вы соглашаетесь на обработку данных.');
+define('FORM_CONSENT_DE', 'Mit dem Klick auf die Schaltfläche stimmen Sie der Datenverarbeitung zu.');
+define('FORM_SUBMIT', 'Отправить →');
+define('FORM_SUBMIT_DE', 'Absenden →');
+
+// Лайтбокс (подпись "закрыть")
+define('LIGHTBOX_CLOSE', 'Закрыть / Schließen ✕');
+
 // Часовой пояс для дат в админке
 date_default_timezone_set('Asia/Novosibirsk');

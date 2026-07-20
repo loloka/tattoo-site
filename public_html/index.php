@@ -120,29 +120,28 @@ $categories = array_values(array_unique(array_filter(array_map(
   </div>
   <form id="contact-form">
     <div class="field">
-      <label for="f-name">Имя / Name *</label>
+      <label for="f-name"><?= e(FORM_LABEL_NAME) ?></label>
       <input id="f-name" name="name" type="text" required>
     </div>
     <div class="field">
-      <label for="f-topic">Тема обращения / Betreff *</label>
+      <label for="f-topic"><?= e(FORM_LABEL_TOPIC) ?></label>
       <select id="f-topic" name="topic" required>
-        <option value="">Выбрать тему / Betreff auswählen</option>
-        <option>Хочу предложить работу / Ich möchte eine Arbeit anbieten</option>
-        <option>Вопрос по работе / покупке / Frage zur Arbeit / zum Kauf</option>
-        <option>Сотрудничество / Zusammenarbeit</option>
-        <option>Другое / Sonstiges</option>
+        <option value=""><?= e(FORM_TOPIC_PLACEHOLDER) ?></option>
+        <?php foreach (array_filter([FORM_TOPIC_1, FORM_TOPIC_2, FORM_TOPIC_3, FORM_TOPIC_4]) as $opt): ?>
+          <option><?= e($opt) ?></option>
+        <?php endforeach; ?>
       </select>
     </div>
     <div class="field">
-      <label for="f-comment">Комментарий (не обязательно) / Kommentar (optional)</label>
+      <label for="f-comment"><?= e(FORM_LABEL_COMMENT) ?></label>
       <textarea id="f-comment" name="comment"></textarea>
     </div>
     <div class="field">
-      <label for="f-contact">Телеграм или телефон / Telegram oder Telefonnummer *</label>
+      <label for="f-contact"><?= e(FORM_LABEL_CONTACT) ?></label>
       <input id="f-contact" name="contact" type="text" required>
     </div>
-    <div class="consent">Нажимая на кнопку, вы соглашаетесь на обработку данных.<br>Mit dem Klick auf die Schaltfläche stimmen Sie der Datenverarbeitung zu.</div>
-    <button class="submit-btn" type="submit"><span class="submit-btn__ru">Отправить →</span><span class="submit-btn__de">Absenden →</span></button>
+    <div class="consent"><?= e(FORM_CONSENT) ?><br><?= e(FORM_CONSENT_DE) ?></div>
+    <button class="submit-btn" type="submit"><span class="submit-btn__ru"><?= e(FORM_SUBMIT) ?></span><span class="submit-btn__de"><?= e(FORM_SUBMIT_DE) ?></span></button>
     <div class="form-msg" data-form-msg></div>
   </form>
 </section>
@@ -158,7 +157,7 @@ $categories = array_values(array_unique(array_filter(array_map(
 </footer>
 
 <div class="lightbox" id="lightbox">
-  <div class="lightbox__close" data-lightbox-close>Закрыть / Schließen ✕</div>
+  <div class="lightbox__close" data-lightbox-close><?= e(LIGHTBOX_CLOSE) ?></div>
   <div class="lightbox__inner">
     <img data-lightbox-img src="" alt="">
     <div class="lightbox__meta">
